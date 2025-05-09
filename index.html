@@ -53,6 +53,12 @@
             color: #ff00ff;
             text-shadow: 0 0 10px #ff00ff;
         }
+        #restockPlan {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+        }
         @keyframes neonGlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 400% 50%; }
@@ -140,7 +146,7 @@
             const cansPerStop = Math.ceil(totalCans / 3); // Split across 3 restocking stops
             const packsPerStop = Math.ceil(cansPerStop / cansPerPack);
 
-            restockPlanDiv.innerHTML = `
+            const restockHTML = `
                 <h2 class="text-lg neon-text text-pink-500 mt-4">Restocking Route (Counterclockwise)</h2>
                 <p>Starting at <a href="https://maps.app.goo.gl/P9TGw9nJaEQh9KVR8" target="_blank">Nanny Cay Marina, Tortola</a> (Day 1):</p>
                 <p>Buy <span class="text-lime-400">${cansPerStop}</span> cans (${packsPerStop} packs) at Nanny Cay Marina.</p>
@@ -150,6 +156,8 @@
                 <p>Restock <span class="text-lime-400">${totalCans - 2 * cansPerStop}</span> cans (${Math.ceil((totalCans - 2 * cansPerStop) / cansPerPack)} packs) at Leverick Bay.</p>
                 <p>Day 7 - Back to Nanny Cay, Tortola: Party’s over, sip the leftovers!</p>
             `;
+            console.log("Restocking Plan HTML:", restockHTML); // Debugging log
+            restockPlanDiv.innerHTML = restockHTML;
         }
     </script>
 </body>
