@@ -45,6 +45,14 @@
             color: #ff00ff;
             box-shadow: 0 0 15px #00ffff;
         }
+        a {
+            color: #00ffff;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+        }
         @keyframes neonGlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 400% 50%; }
@@ -92,6 +100,7 @@
                 Chart the High Noon Course!
             </button>
             <div id="result" class="mt-4 text-center text-sm neon-text text-cyan-400"></div>
+            <div id="restockPlan" class="mt-4 text-left text-sm neon-text text-cyan-400"></div>
         </div>
     </div>
 
@@ -119,10 +128,27 @@
             const totalCans = people * days * drinksPerDay;
             const packsNeeded = Math.ceil(totalCans / cansPerPack);
 
+            // Display total cans and packs needed
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
                 Ahoy, you need <span class="text-pink-500">${totalCans}</span> High Noon cans for the BVI adventure!<br>
                 Stock <span class="text-lime-400">${packsNeeded}</span> pack${packsNeeded > 1 ? 's' : ''} (8 cans each) and sail with neon vibes!
+            `;
+
+            // Restocking plan
+            const restockPlanDiv = document.getElementById('restockPlan');
+            const cansPerStop = Math.ceil(totalCans / 3); // Split across 3 restocking stops
+            const packsPerStop = Math.ceil(cansPerStop / cansPerPack);
+
+            restockPlanDiv.innerHTML = `
+                <h2 class="text-lg neon-text text-pink-500 mt-4">Restocking Route (Counterclockwise)</h2>
+                <p>Starting at <a href="https://maps.app.goo.gl/P9TGw9nJaEQh9KVR8" target="_blank">Nanny Cay Marina, Tortola</a> (Day 1):</p>
+                <p>Buy <span class="text-lime-400">${cansPerStop}</span> cans (${packsPerStop} packs) at Nanny Cay Marina.</p>
+                <p>Day 2 - Jost Van Dyke (<a href="https://maps.app.goo.gl/2zZfYvYJ5kXhL5eM6" target="_blank">Foxy's Tamarind Bar</a>):</p>
+                <p>Restock <span class="text-lime-400">${cansPerStop}</span> cans (${packsPerStop} packs) at Foxy's.</p>
+                <p>Day 4 - Virgin Gorda (<a href="https://maps.app.goo.gl/6eT2qYhY5zWvL7yN7" target="_blank">Leverick Bay Marina</a>):</p>
+                <p>Restock <span class="text-lime-400">${totalCans - 2 * cansPerStop}</span> cans (${Math.ceil((totalCans - 2 * cansPerStop) / cansPerPack)} packs) at Leverick Bay.</p>
+                <p>Day 7 - Back to Nanny Cay, Tortola: Party’s over, sip the leftovers!</p>
             `;
         }
     </script>
